@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/LambentLight/Schemas/master/builds.json",
+
+    "type": "object",
+    "properties": {
+        "builds": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "The Name or Identifier of this Build",
+                        "type": "string"
+                    },
+                    "download": {
+                        "description": "URL where the Build can be downloaded",
+                        "type": "string"
+                    },
+                    "target": {
+                        "description": "The target OS for this build",
+                        "type": "integer",
+                        "enum": [0, 1]
+                    }
+                },
+                "required": ["name", "download", "target"]
+            }
+        }
+    },
+    "required": [ "builds" ]
+}
