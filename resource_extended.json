@@ -1,0 +1,105 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/LambentLight/Schemas/master/resource_extended.json",
+
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "Name of the Resource",
+            "type": "string",
+            "minLength": 1
+        },
+        "author": {
+            "description": "Author of the Resource",
+            "type": "string",
+            "minLength": 1
+        },
+        "target": {
+            "description": "Target Game of this Resource",
+            "type": "integer"
+        },
+        "destination": {
+            "description": "Name of the folder where this resource should be installed",
+            "type": "string",
+            "minLength": 1
+        },
+        "requires": {
+            "description": "Resources that are required by this one",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "versions": {
+            "description": "The versions that can be installed",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "version": {
+                        "description": "The version in a readable form",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "download": {
+                        "description": "URL to download this version",
+                        "type": "string",
+                        "pattern": "https?:\/\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,4}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)",
+                        "minLength": 1
+                    },
+                    "path": {
+                        "description": "The Path of the resource inside of the file",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "version",
+                    "download"
+                ]
+            }
+        },
+        "github": {
+            "description": "The GitHub information for updating the versions",
+            "type": "object",
+            "properties": {
+                "owner": {
+                    "description": "The User or Organization that owns the repo",
+                    "type": "string"
+                },
+                "repo": {
+                    "description": "The name of the repository",
+                    "type": "string"
+                },
+                "patches": {
+                    "description": "Individual patches to apply for specific versions",
+                    "type": "object"
+                },
+                "releases": {
+                    "description": "If the releases should be included",
+                    "type": "boolean",
+                    "default": true
+                },
+                "commmits": {
+                    "description": "The number of commits to include",
+                    "type": "integer",
+                    "multipleOf": 1.0,
+                    "minumum": 0,
+                    "maximum": 30,
+                    "default": 0
+                }
+            },
+            "required": [
+                "owner",
+                "repo"
+            ]
+        }
+    },
+    "required": [
+        "name",
+        "author",
+        "target",
+        "destination",
+        "versions"
+    ]
+}
